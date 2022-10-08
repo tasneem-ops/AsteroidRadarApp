@@ -27,6 +27,7 @@ interface AsteroidDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
      fun insertAsteroid(vararg asteroids: Asteroid)
+
 }
 
 @Dao
@@ -37,6 +38,8 @@ interface PictureDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPic(pictureOfDay: PictureOfDay)
 
+    @Query("delete from picture_of_day")
+    fun clear()
 
 }
 

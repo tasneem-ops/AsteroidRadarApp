@@ -14,6 +14,8 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "https://api.nasa.gov/"
+val today = NetworkUtils().today
+val lastDay = NetworkUtils().lastDay
 val networkUtils = NetworkUtils()
 val client = OkHttpClient.Builder()
     .connectTimeout(10, TimeUnit.MINUTES)
@@ -28,7 +30,7 @@ private val retrofit = Retrofit.Builder()
 
 interface AsteroidApiService{
 
-    @GET ("neo/rest/v1/feed?start_date=2022-08-14&end_date=2022-08-20&api_key=${Constants.API_KEY}")
+    @GET ("neo/rest/v1/feed?start_date=today&end_date=lastDay&api_key=${Constants.API_KEY}")
     suspend fun getProperties(): String
 
 }

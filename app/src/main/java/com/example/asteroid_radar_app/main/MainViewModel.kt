@@ -38,6 +38,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             picRepo.refreshPic()
             _pic.value = picRepo.picture
+
+
         }
     }
     fun getAst(){

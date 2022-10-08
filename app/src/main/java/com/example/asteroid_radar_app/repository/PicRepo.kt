@@ -11,14 +11,16 @@ class PicRepo(private val database : AsteroidDatabase) {
 lateinit var picture : PictureOfDay
     suspend fun refreshPic(){
         withContext(Dispatchers.IO){
-            picture = database.pictureDao.getPic("image")
+            database.pictureDao.clear()
             try {
                 val response = PicApi.retrofitService.getProperties()
                 database.pictureDao.insertPic(response)
             }
             catch (e:Exception){
                 Log.i("PicRepo", "No Internet"+ e)
+                database.pictureDao.insertPic(PictureOfDay("image", "Hubble Gazes at a Star-Studded Skyfield","https://apod.nasa.gov/apod/image/2208/MeteorWind_Larnaout_960.jpg "))
             }
+            picture = database.pictureDao.getPic("image")
         }
     }
 }
